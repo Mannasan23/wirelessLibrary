@@ -41,7 +41,7 @@ export default class BookTransaction extends React.Component {
         db.collection("transaction").add({
             "studentId": this.state.scannedStudentId,
             "bookId": this.state.scannedBookId,
-            "data": firebase.firestore.Timestamp.now().toDate(),
+            "date": firebase.firestore.Timestamp.now().toDate(),
             "transactionType": "issue"
         })
         db.collection("books").doc(this.state.scannedBookId).update({
@@ -57,7 +57,7 @@ export default class BookTransaction extends React.Component {
         db.collection("transaction").add({
             "studentId": this.state.scannedStudentId,
             "bookId": this.state.scannedBookId,
-            "data": firebase.firestore.Timestamp.now().toDate(),
+            "date": firebase.firestore.Timestamp.now().toDate(),
             "transactionType": "return"
         })
         db.collection("books").doc(this.state.scannedBookId).update({
@@ -98,7 +98,7 @@ export default class BookTransaction extends React.Component {
     }
 
     checkBookEligibility = async()=>{
-        const bookRef = db.collection("books").where("bookId", "==", this.state.scannedBookId).get();
+        const bookRef = await db.collection("books").where("bookId", "==", this.state.scannedBookId).get();
         var transactionType = '';
         console.log(bookRef.docs);
         if(bookRef.docs.length == 0){
@@ -119,7 +119,7 @@ export default class BookTransaction extends React.Component {
     }
 
     stdEliBookIssue = async()=>{
-        const studentRef = db.collection("students").where("studentId", "==", this.state.scannedStudentId).get();
+        const studentRef = await db.collection("students").where("studentId", "==", this.state.scannedStudentId).get();
         var isStudentEligible = '';
         if(studentRef.docs.length == 0){
             isStudentEligible = false;
@@ -143,7 +143,7 @@ export default class BookTransaction extends React.Component {
     }
 
     stdEliBookReturn = async()=>{
-        const transactionRef = db.collection("transaction").where("bookId", "==", this.state.scannedBookId).limit(1).get();
+        const transactionRef = await db.collection("transaction").where("bookId", "==", this.state.scannedBookId).limit(1).get();
         var isStudentEligible = '';
         transactionRef.docs.map((doc)=>{
             var latestTransaction = doc.data();
