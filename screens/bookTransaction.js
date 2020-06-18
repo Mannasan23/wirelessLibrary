@@ -176,7 +176,7 @@ export default class BookTransaction extends React.Component {
                 <KeyboardAvoidingView style= {styles.container} behaviour= "padding" enabled>
                     <View>
                         <Image source= {require("../assets/booklogo.jpg")} style= {{width: 200, height: 200}}></Image>
-                        <Text style= {{textAlign: 'center', fontSize: 30}}>Library Helper </Text>
+                        <Text style= {{textAlign: 'center', fontSize: 30}}>Wily</Text>
                     </View>
                     <View style= {styles.inputView}>
                         <TextInput style= {styles.inputBox} placeholder= "book id" value= {this.state.scannedBookId}
